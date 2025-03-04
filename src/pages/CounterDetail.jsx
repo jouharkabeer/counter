@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const CounterDetails = () => {
   const { id } = useParams();
   const [counter, setCounter] = useState(null);
   const [value, setValue] = useState("");
-
+  const navigate = useNavigate()
   useEffect(() => {
     const counters = JSON.parse(localStorage.getItem("counters")) || [];
     setCounter(counters[id]);
@@ -20,6 +21,13 @@ const CounterDetails = () => {
     setValue("");
   };
 
+  const DeleteCounter = () => {
+    const counters = JSON.parse(localStorage.getItem("counters")) || [];
+    const updatedCounters = counters.filter((_, index) => index !== Number(id));
+    localStorage.setItem("counters", JSON.stringify(updatedCounters));
+    navigate("/");
+  };
+
   if (!counter) return <p>Loading...</p>;
 
   return (
@@ -31,6 +39,7 @@ const CounterDetails = () => {
       <p>Description: {counter.description}</p>
       <input type="number" placeholder="Add Value" value={value} onChange={(e) => setValue(e.target.value)} />
       <button onClick={updateCounter}>Update</button>
+      <button className="delete-btn" onClick={DeleteCounter}>Delete counter</button>
     </div>
   );
 };
