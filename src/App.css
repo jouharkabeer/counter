@@ -125,8 +125,31 @@ button:hover {
   background: #dc3545;
 }
 
+.flexalign{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.counter-button{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #666;
+  font-size: 30px;
+}
+
 .delete-btn:hover {
   background: #c82333;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button:active {
+  top: 4px;
+  box-shadow: #c0392b 0px 3px 2px,#000 0px 3px 5px;
 }
 
 /* Responsive Design */

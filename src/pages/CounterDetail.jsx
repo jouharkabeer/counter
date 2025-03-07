@@ -21,6 +21,13 @@ const CounterDetails = () => {
     setValue("");
   };
 
+  const singleUpdate = () => {
+    const counters = JSON.parse(localStorage.getItem("counters")) || [];
+    counters[id].current += 1;
+    localStorage.setItem("counters", JSON.stringify(counters));
+    setCounter(counters[id]);
+  };
+
   const DeleteCounter = () => {
     const counters = JSON.parse(localStorage.getItem("counters")) || [];
     const updatedCounters = counters.filter((_, index) => index !== Number(id));
@@ -37,9 +44,12 @@ const CounterDetails = () => {
       <p>Current: {counter.current}</p>
       <p>Remaining: {counter.target - counter.current}</p>
       <p>Description: {counter.description}</p>
-      <input type="number" placeholder="Add Value" value={value} onChange={(e) => setValue(e.target.value)} />
-      <button onClick={updateCounter}>Update</button>
-      <button className="delete-btn" onClick={DeleteCounter}>Delete counter</button>
+      <div className="flexalign">
+        <input type="number" placeholder="Add Value" value={value} onChange={(e) => setValue(e.target.value)} />
+        <button onClick={updateCounter}>Update</button>
+      </div>
+      <button className="delete-btn" onClick={DeleteCounter}>Delete counter</button> <br/>
+      <button className="counter-button" onClick={singleUpdate}>+</button>
     </div>
   );
 };
